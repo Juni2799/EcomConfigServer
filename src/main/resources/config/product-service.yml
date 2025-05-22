@@ -9,10 +9,20 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: create
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 
 server:
   port: 8081
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 #spring.h2.console.enabled=true
 
 #spring.datasource.url=jdbc:h2:mem:testdb
