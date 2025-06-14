@@ -25,6 +25,13 @@ management:
     web:
       exposure:
         include: "*"
+  endpoint:
+    health:
+      show-details: always
+# Config setup for circuitbreaker health info
+  health:
+    circuitbreakers:
+      enabled: true
 
 # Eureka server URL (where the Eureka server is running)
 eureka:
@@ -35,3 +42,17 @@ eureka:
     register-with-eureka: true
     # Fetch registry from Eureka (true if the client needs to discover other services)
     fetch-registry: true
+
+# Config setup for defining Resilience4j features like Circuit Breakers, Retry and Rate Limiting
+resilience4j:
+  circuitbreaker:
+    instances:
+      productService:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        permittedNumberOfCallsInHalfOpenState: 3
+        waitDurationInOpenState: 10s
+        failureRateThreshold: 50
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        slidingWindowType: count_based
