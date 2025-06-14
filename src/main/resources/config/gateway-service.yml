@@ -32,3 +32,16 @@
 server:
   port: 8080
 
+# Config setup for defining Resilience4j features like Circuit Breakers, Retry and Rate Limiting
+resilience4j:
+  circuitbreaker:
+    instances:
+      ecomBreaker:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        permittedNumberOfCallsInHalfOpenState: 3
+        waitDurationInOpenState: 10s
+        failureRateThreshold: 50
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        slidingWindowType: count_based
